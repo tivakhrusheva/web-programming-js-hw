@@ -99,7 +99,7 @@ console.log(sum('1', '1')); // Uncaught Error: Operands are not numbers!
 
 function getMinimalCVS(arr) {
   //this.arr = arr;
-  arrEditions = [];
+  var arrEditions = [];
   arrEditions.push(arr);
   return {
     history: function() {
@@ -111,7 +111,7 @@ function getMinimalCVS(arr) {
     },
 
     push: function(elem){
-      lastArr = arrEditions.slice(-1);
+      var lastArr = arrEditions.slice(-1);
       lastArr = lastArr.concat(elem)
       arrEditions = arrEditions.concat([lastArr])
 
