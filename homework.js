@@ -98,7 +98,6 @@ console.log(sum('1', '1')); // Uncaught Error: Operands are not numbers!
 // #4. (по-моему я не до конца ее отладила)
 
 function getMinimalCVS(arr) {
-  //this.arr = arr;
   var arrEditions = [];
   arrEditions.push(arr);
   return {
@@ -107,26 +106,35 @@ function getMinimalCVS(arr) {
     },
 
     head: function() {
-      return arrEditions.slice(-1);
+      return arrEditions.slice(-1).flat();
     },
 
     push: function(elem){
-      var lastArr = arrEditions.slice(-1);
-      lastArr = lastArr.concat(elem)
-      arrEditions = arrEditions.concat([lastArr])
+      var lastArr = arrEditions[arrEditions.length - 1]
+      let c = [...lastArr]
+      c.push(elem)
+      arrEditions.push(c)
 
     },
     pop: function(){
-        var lastArr = arrEditions.slice(-1).slice(-1);
-        var lastElem = lastArr[lastArr.length - 1].slice(-1);
-        var newArr = lastArr.pop()
-        arrEditions = arrEditions.concat([newArr])
+        var lastArr = this.head().flat()
+        var l = [...lastArr]
+        var lastElem = l.pop()   
+        arrEditions.push(l)
         return lastElem
     }
 }
 }
 
-const test = new getMinimalCVS(['a', 'b', 'c'])
+const test2 = new getMinimalCVS(['a', 'b', 'c'])
+console.log(test2.head()) //  ["a", "b", "c"]
+console.log(test2.history()) // [Array(3)]
+console.log(test2.push("test")) // undefined
+console.log(test2.head()) // ["a", "b", "c", "test"]
+console.log(test2.history()) // [Array(3), Array(4)]
+console.log(test2.pop()) // test 
+console.log(test2.head()) // ["a", "b", "c"]
+console.log(test2.history()) 
 
 
 // #6. 
